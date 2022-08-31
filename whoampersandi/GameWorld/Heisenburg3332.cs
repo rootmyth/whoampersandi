@@ -14,15 +14,21 @@ namespace whoampersandi.GameWorld
     {
         public string RegionName { get; } = "HEISENBURG";
         public bool IsOuterWorld { get; } = true;
-        public (int X, int Y) MapLocationInWorld { get; } = ( 33, 32);
+        public (int X, int Y) MapLocationInWorld { get; } = ( 33, 32 );
         public List<Dictionary<IEntity, (int X, int Y)>>? Entities { get; set; } = new()
         {
             new()
             {
-                { new Pig(), (11, 48) }
+                { new Pig(), (18, 11) },
+                { new Pig(), (35, 13) },
+                { new GoodSamaritan(), (33, 19)}
             }
         };
-        public Dictionary<string, int> PlayerLocation { get; set; }
+        public Dictionary<string, int> PlayerLocation { get; set; } = new()
+        {
+            { "X", 32},
+            { "Y", 19}
+        };
 
         public List<List<string>> MapMatrix => new()
         {
@@ -98,7 +104,7 @@ namespace whoampersandi.GameWorld
         {
             Dictionary<IEntity, (int X, int Y)> entities = null;
 
-            if (state.testState)
+            if (state.newGame)
             {
                 entities = Entities[0];
             }
@@ -113,9 +119,9 @@ namespace whoampersandi.GameWorld
                 string consoleLineChars = "";
                 foreach (string character in consoleLineList)
                 {
-                    if (entities.ContainsValue((row, column)))
+                    if (entities.ContainsValue((column, row)))
                     {
-                        consoleLineChars += entities.FirstOrDefault(entity => entity.Value == (row, column)).Key.Appearance;
+                        consoleLineChars += entities.FirstOrDefault(entity => entity.Value == (column, row)).Key.Appearance;
                     }
                     else if (PlayerLocation["X"] == column && PlayerLocation["Y"] == row)
                     {

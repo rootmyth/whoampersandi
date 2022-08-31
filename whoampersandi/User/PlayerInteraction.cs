@@ -17,10 +17,10 @@ namespace whoampersandi.User
             int playerRow = area.PlayerLocation["Y"];
             int playerCol = area.PlayerLocation["X"];
 
-            bool entityAbove = entities.ContainsValue((playerRow - 1, playerCol));
-            bool entityToRight = entities.ContainsValue((playerRow, playerCol + 1));
-            bool entityBelow = entities.ContainsValue((playerRow + 1, playerCol));
-            bool entityToLeft = entities.ContainsValue((playerRow, playerCol - 1));
+            bool entityAbove = entities.ContainsValue((playerCol, playerRow - 1));
+            bool entityToRight = entities.ContainsValue((playerCol + 1, playerRow));
+            bool entityBelow = entities.ContainsValue((playerCol, playerRow + 1));
+            bool entityToLeft = entities.ContainsValue((playerCol - 1, playerRow));
 
             bool entityProxy = false;
 
@@ -36,10 +36,10 @@ namespace whoampersandi.User
             int playerRow = area.PlayerLocation["Y"];
             int playerCol = area.PlayerLocation["X"];
 
-            bool entityAbove = entities.ContainsValue((playerRow - 1, playerCol));
-            bool entityToRight = entities.ContainsValue((playerRow, playerCol + 1));
-            bool entityBelow = entities.ContainsValue((playerRow + 1, playerCol));
-            bool entityToLeft = entities.ContainsValue((playerRow, playerCol - 1));
+            bool entityAbove = entities.ContainsValue((playerCol, playerRow - 1));
+            bool entityToRight = entities.ContainsValue((playerCol + 1, playerRow));
+            bool entityBelow = entities.ContainsValue((playerCol, playerRow + 1));
+            bool entityToLeft = entities.ContainsValue((playerCol - 1, playerRow));
 
             IEntity? entity = null;
 

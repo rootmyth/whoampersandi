@@ -21,12 +21,14 @@ namespace whoampersandi.Visuals
             string money = LevelBar.DisplayMoney(user.Money);
             string areaName = LevelBar.DisplayArea(area.RegionName);
 
+            Console.SetCursorPosition(0, 0);
             Console.WriteLine(@$"================================================================
 | LEVEL {level} | EXP {experience} | {money} | {areaName} |
 \==============================================================/");
         }
         public void RenderWorldViewer()
         {
+            Console.SetCursorPosition(0, 3);
             Console.WriteLine(@"                                                                
                                                                 
                                                                 
@@ -62,6 +64,7 @@ namespace whoampersandi.Visuals
         }
         public void RenderWorldViewer(Player player, Dictionary<IEntity, (int, int)> entities, IArea area)
         {
+            Console.SetCursorPosition(0, 3);
             area.RenderMap(player, entities);
         }
         public void RenderStatusBar(Player user)
@@ -70,6 +73,7 @@ namespace whoampersandi.Visuals
             string magic = StatusBar.DisplayMeter(user.Magic, user.MaxMagic);
             string morale = StatusBar.DisplayMeter(user.Morale, user.MaxMorale);
 
+            Console.SetCursorPosition(0, 35);
             Console.WriteLine(@$"/==============================================================\
 | LIFE : {health} | MAGIC : {magic} | MORALE : {morale} |
 ================================================================");
@@ -77,6 +81,7 @@ namespace whoampersandi.Visuals
         }
         public void RenderDialogueBox()
         {
+            Console.SetCursorPosition(0, 38);
             Console.WriteLine(@"|                                                              |
 |                                                              |
 |                                                              |
@@ -84,10 +89,8 @@ namespace whoampersandi.Visuals
 |                                                              |
 ================================================================");
         }
-        public async Task RenderDialogueBox(List<List<string>> dialogue)
+        public void RenderDialogueBox(List<List<string>> dialogue)
         {
-            List<string> lines = new();
-
             for (int i = 0; i < dialogue.Count; i++)
             {
                 Console.SetCursorPosition(0, 38);
@@ -107,6 +110,10 @@ namespace whoampersandi.Visuals
                     }
                 }
             }
+        }
+        public void RenderMenu()
+        {
+
         }
     }
 }

@@ -19,19 +19,11 @@ namespace whoampersandi.GameWorld
         {
             new()
             {
-                { new Pig(), (11, 48) }
+                { new Pig(), (11, 48) },
+                { new Pig(), (13, 38) }
             },
-            new()
-            {
-                { new Pig(), (20, 35) }
-            }
         };
-        public Dictionary<string, int> PlayerLocation { get; set; } = new()
-        {
-            { "X", 23},
-            { "Y", 19}
-        };
-
+        public Dictionary<string, int> PlayerLocation { get; set; } 
         public List<List<string>> MapMatrix => new()
         {
             MapLine01,
@@ -104,17 +96,7 @@ namespace whoampersandi.GameWorld
         
         public Dictionary<IEntity, (int X, int Y)> GetEntitiesForState(GameState state)
         {
-            Dictionary<IEntity, (int X, int Y)> entities = null;
-
-            if (state.testState)
-            {
-                entities = Entities[0];
-            }
-            else
-            {
-                entities = Entities[1];
-            }
-            return entities;
+            return Entities[0];
         }
         
         public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities)

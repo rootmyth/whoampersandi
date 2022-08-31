@@ -27,7 +27,7 @@ namespace whoampersandi
         private bool _userIsPlayingGame = true;
 
 
-        private IArea areaToDisplay { get; set; } = new Heisenburg3232();
+        private IArea areaToDisplay { get; set; } = new Heisenburg3332();
         public void Start()
         {
             Console.SetWindowSize(64, 45);
@@ -71,8 +71,8 @@ namespace whoampersandi
                 if (Interaction.CheckEntityProxy(currentArea, State))
                 {
                     IEntity entity = Interaction.ReturnEntity(currentArea, State);
-                    Display.RenderDialogueBox(Text.CreateDialogueBoxText(entity.EngaugeInDialouge()));
-                    New.EventProgression();
+                    Display.RenderDialogueBox(Text.CreateDialogueBoxText(entity.EngaugeInDialouge(State), User));
+                    New.EventProgression(User, areaToDisplay.GetEntitiesForState(State), outerWorld, State);
                 }
             }
         }
