@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using whoampersandi.User;
 using whoampersandi.State;
+using whoampersandi.WorldNavigation;
+using whoampersandi.OuterWorld;
+using whoampersandi.InnerWorld;
 
 namespace whoampersandi.Interfaces
 {
@@ -12,9 +15,11 @@ namespace whoampersandi.Interfaces
     {
         string RegionName { get; }
         bool IsOuterWorld { get; }
+        bool HasEvents { get; set; }
         (int X, int Y) MapLocationInWorld { get; }
-        List<Dictionary<IEntity, (int X, int Y)>>? Entities { get; set; }
         Dictionary<string, int> PlayerLocation { get; set; }
+        List<Dictionary<IEntity, (int X, int Y)>>? Entities { get; set; }
+        List<Transpoint> Transpoints { get; }
         List<List<string>> Map { get; set; }
         List<string> MapLine01 { get; set; }
         List<string> MapLine02 { get; set; }
@@ -48,7 +53,8 @@ namespace whoampersandi.Interfaces
         List<string> MapLine30 { get; set; }
         List<string> MapLine31 { get; set; }
         List<string> MapLine32 { get; set; }
-        Dictionary<IEntity, (int X, int Y)> GetEntitiesForState(GameState state);
+        Dictionary<IEntity, (int X, int Y)>? GetEntitiesForState(GameState state);
+        void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state);
         void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities);
     }
 }

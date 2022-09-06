@@ -11,7 +11,7 @@ namespace whoampersandi.Entities
     internal class Pig : IEntity
     {
         public string Appearance { get; } = "?";
-        public static string Name { get; set; } = "A PIG";
+        public static string Name { get; set; } = "Pig";
         public int NumberOfInteractions { get; set; } = 0;
         public Dictionary<int, string> EntityDialogue { get; } = new()
         {
@@ -23,9 +23,9 @@ namespace whoampersandi.Entities
         {
             Random rnd = new Random();
             int index = rnd.Next(EntityDialogue.Count);
-            string dialouge = EntityDialogue.FirstOrDefault(text => text.Key.Equals(index + 1)).Value;
+            KeyValuePair<int, string> dialouge = EntityDialogue.FirstOrDefault(text => text.Key == index + 1);
             NumberOfInteractions++;
-            return dialouge;
+            return dialouge.Value;
         }
     }
 }

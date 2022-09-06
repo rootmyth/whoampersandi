@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using whoampersandi.GameWorld;
+using whoampersandi.OuterWorld;
 using whoampersandi.Interfaces;
 using whoampersandi.User;
-using whoampersandi.Utlilties;
+
 
 namespace whoampersandi.Visuals
 {
@@ -14,8 +14,26 @@ namespace whoampersandi.Visuals
     {
         private LevelBar LevelBar = new();
         private StatusBar StatusBar = new();
+
+        public void RenderLevelBar(bool whiteSpace)
+        {
+            Console.SetCursorPosition(0, 0);
+            if (whiteSpace)
+            {
+                Console.WriteLine(@$"                                                                
+                                                                
+                                                                ");
+            }
+            else
+            {
+                Console.WriteLine(@$"================================================================
+|                                                              |
+\==============================================================/");
+            }
+        }
         public void RenderLevelBar(Player user, IArea area)
         {
+            Console.SetCursorPosition(0, 0);
             string level = LevelBar.DisplayLevel(user.Level);
             string experience = LevelBar.DisplayExperience(user.Experience);
             string money = LevelBar.DisplayMoney(user.Money);
@@ -67,6 +85,22 @@ namespace whoampersandi.Visuals
             Console.SetCursorPosition(0, 3);
             area.RenderMap(player, entities);
         }
+        public void RenderStatusBar(bool whiteSpace)
+        {
+            Console.SetCursorPosition(0, 35);
+            if (whiteSpace)
+            {
+                Console.WriteLine(@$"                                                                
+                                                                
+                                                                ");
+            }
+            else
+            {
+            Console.WriteLine(@$"/==============================================================\
+|                                                              |
+================================================================");
+            }
+        }
         public void RenderStatusBar(Player user)
         {
             string health = StatusBar.DisplayMeter(user.Health, user.MaxHealth);
@@ -113,7 +147,7 @@ namespace whoampersandi.Visuals
         }
         public void RenderMenu()
         {
-
+        
         }
     }
 }

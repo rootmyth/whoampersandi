@@ -113,9 +113,9 @@ namespace whoampersandi.Visuals
             string newLine = "";
             for (int i = 0; i < dialogueAsArray.Length; i++)
             {
-                if (dialogueAsArray[i].Contains("*"))
+                if (dialogueAsArray[i].Contains('~'))
                 {
-                    int indexOfName = dialogueAsArray[i].IndexOf("*");
+                    int indexOfName = dialogueAsArray[i].IndexOf("~");
                     dialogueAsArray[i] = dialogueAsArray[i].Remove(indexOfName, 1).Insert(indexOfName, player.Name);
                     
                 }

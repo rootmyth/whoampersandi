@@ -4,39 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using whoampersandi.Interfaces;
-using whoampersandi.GameWorld;
+using whoampersandi.OuterWorld;
 using whoampersandi.State;
+using whoampersandi.InnerWorld;
 
 namespace whoampersandi.WorldNavigation
 {
     internal class PlayerMovement
     {
-        public bool IsMovingToNewOuterArea(IArea area, ConsoleKeyInfo userInput)
-        {
-            string input = userInput.Key.ToString();
-
-            int playerX = area.PlayerLocation["X"];
-            int playerY = area.PlayerLocation["Y"];
-
-            bool newOuterArea = false;
-            if (input == "W" && playerY == 1)
-            {
-                newOuterArea = true;
-            }
-            else if (input == "D" && playerX == 64)
-            {
-                newOuterArea = true;
-            }
-            else if (input == "S" && playerY == 32)
-            {
-                newOuterArea = true;
-            }
-            else if (input == "A" && playerX == 1)
-            {
-                newOuterArea = true;
-            }
-            return newOuterArea;
-        }
         public Dictionary<string, bool> CheckValidLandMoves(IArea area, GameState state)
         {
             Dictionary<string, bool> validMoves = new Dictionary<string, bool>()
@@ -64,7 +39,7 @@ namespace whoampersandi.WorldNavigation
             }
             if (playerCol != 64)
             {
-                charToRight = area.Map[playerRow - 1][playerCol];   
+                charToRight = area.Map[playerRow - 1][playerCol];
             }
             if (playerRow != 32)
             {
@@ -75,54 +50,67 @@ namespace whoampersandi.WorldNavigation
                 charToLeft = area.Map[playerRow - 1][playerCol - 2];
             }
 
-            if (validStrings.Contains(charAbove) && !entities.ContainsValue((playerRow - 1, playerCol)))
+            if (validStrings.Contains(charAbove) && !entities.ContainsValue((playerCol, playerRow - 1)))
             {
                 validMoves["Up"] = true;
             }
-            if (validStrings.Contains(charToRight) && !entities.ContainsValue((playerRow, playerCol + 1)))
+            if (validStrings.Contains(charToRight) && !entities.ContainsValue((playerCol + 1, playerRow)))
             {
                 validMoves["Right"] = true;
             }
-            if (validStrings.Contains(charBelow) && !entities.ContainsValue((playerRow + 1, playerCol)))
+            if (validStrings.Contains(charBelow) && !entities.ContainsValue((playerCol, playerRow + 1)))
             {
                 validMoves["Down"] = true;
             }
-            if (validStrings.Contains(charToLeft) && !entities.ContainsValue((playerRow, playerCol - 1)))
+            if (validStrings.Contains(charToLeft) && !entities.ContainsValue((playerCol - 1, playerRow)))
             {
                 validMoves["Left"] = true;
             }
             return validMoves;
 
         }
-        public Dictionary<string, int> MovePlayerWithinArea(IArea area, GameState state, ConsoleKeyInfo userInput)
+
+        public bool IsMovingToNewOuterArea(IArea area, ConsoleKeyInfo userInput)
         {
             string input = userInput.Key.ToString();
 
-            Dictionary<string, bool> validMoves = CheckValidLandMoves(area, state);
-            Dictionary<string, int> currentPosition = area.PlayerLocation;
+            int playerX = area.PlayerLocation["X"];
+            int playerY = area.PlayerLocation["Y"];
 
-            Dictionary<string, int> newPosition = currentPosition;
-
-            if (input == "W" && validMoves["Up"])
+            bool newOuterArea = false;
+            if (input == "W" && playerY == 1)
             {
-                newPosition["Y"] = newPosition["Y"] - 1;
+                newOuterArea = true;
             }
-            else if (input == "D" && validMoves["Right"])
+            else if (input == "D" && playerX == 64)
             {
-                newPosition["X"] = newPosition["X"] + 1;
+                newOuterArea = true;
             }
-            else if (input == "S" && validMoves["Down"])
+            else if (input == "S" && playerY == 32)
             {
-                newPosition["Y"] = newPosition["Y"] + 1;
+                newOuterArea = true;
             }
-            else if (input == "A" && validMoves["Left"])
+            else if (input == "A" && playerX == 1)
             {
-                newPosition["X"] = newPosition["X"] - 1;
+                newOuterArea = true;
             }
-
-            return newPosition;
+            return newOuterArea;
         }
 
+        public bool IsMovingThroughTranspoint(IArea area, ConsoleKeyInfo userInput)
+        {
+            string input = userInput.Key.ToString();
+
+            bool isMovingThroughTranspoint = false;
+            foreach (Transpoint tp in area.Transpoints)
+            {
+                if (tp.InitializationPoint["X"] == area.PlayerLocation["X"] && tp.InitializationPoint["Y"] == area.PlayerLocation["Y"] && tp.InitializationKey == input)
+                {
+                    isMovingThroughTranspoint = true;
+                }
+            }
+            return isMovingThroughTranspoint;
+        }
 
         public IArea MovePlayerToNewOuterArea(IArea area, OuterWorldMap outerWorld, ConsoleKeyInfo userInput)
         {
@@ -163,6 +151,56 @@ namespace whoampersandi.WorldNavigation
                     break;
             };
             return newArea;
+        }
+        public IArea MovePlayerThroughTranspoint(IArea area, OuterWorldMap outerWorld, InnerWorldMap innerWorld)
+        {
+            IArea? newArea = null;
+            foreach (Transpoint tp in area.Transpoints)
+            {
+                if (tp.InitializationPoint["X"] == area.PlayerLocation["X"] && tp.InitializationPoint["Y"] == area.PlayerLocation["Y"])
+                {
+                    if (tp.TransToOuterWorld == true)
+                    {
+                        newArea = outerWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == tp.LocationInWorld);
+                        newArea.PlayerLocation = tp.playerSpawnLocation;
+                    }
+                    else
+                    {
+                        newArea = innerWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == tp.LocationInWorld);
+                        newArea.PlayerLocation = tp.playerSpawnLocation;
+                    }
+                }
+            }
+            return newArea;
+        }
+
+        public Dictionary<string, int> MovePlayerWithinArea(IArea area, GameState state, ConsoleKeyInfo userInput)
+        {
+            string input = userInput.Key.ToString();
+
+            Dictionary<string, bool> validMoves = CheckValidLandMoves(area, state);
+            Dictionary<string, int> currentPosition = area.PlayerLocation;
+
+            Dictionary<string, int> newPosition = currentPosition;
+
+            if (input == "W" && validMoves["Up"])
+            {
+                newPosition["Y"] = newPosition["Y"] - 1;
+            }
+            else if (input == "D" && validMoves["Right"])
+            {
+                newPosition["X"] = newPosition["X"] + 1;
+            }
+            else if (input == "S" && validMoves["Down"])
+            {
+                newPosition["Y"] = newPosition["Y"] + 1;
+            }
+            else if (input == "A" && validMoves["Left"])
+            {
+                newPosition["X"] = newPosition["X"] - 1;
+            }
+
+            return newPosition;
         }
     }
 }

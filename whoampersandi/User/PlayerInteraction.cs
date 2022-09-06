@@ -45,19 +45,19 @@ namespace whoampersandi.User
 
             if (entityAbove)
             {
-                entity = entities.FirstOrDefault(entity => entity.Value == (playerRow - 1, playerCol)).Key;
+                entity = entities.FirstOrDefault(entity => entity.Value == (playerCol, playerRow - 1)).Key;
             }
             else if (entityToRight)
             {
-                entity = entities.FirstOrDefault(entity => entity.Value == (playerRow, playerCol + 1)).Key;
+                entity = entities.FirstOrDefault(entity => entity.Value == (playerCol + 1, playerRow)).Key;
             }
             else if (entityBelow)
             {
-                entity = entities.FirstOrDefault(entity => entity.Value == (playerRow + 1, playerCol)).Key;
+                entity = entities.FirstOrDefault(entity => entity.Value == (playerCol, playerRow + 1)).Key;
             }
             else if (entityToLeft)
             {
-                entity = entities.FirstOrDefault(entity => entity.Value == (playerRow, playerCol - 1)).Key;
+                entity = entities.FirstOrDefault(entity => entity.Value == (playerCol - 1, playerRow)).Key;
             }
             return entity;
         }

@@ -8,8 +8,9 @@ namespace whoampersandi.State
 {
     public class GameState
     {
+        public bool dummyStateChange { get; set; } = false;
         public bool newGame { get; set; } = true;
         public bool firstInteractionAtHome { get; set; } = true;
-        public bool defeatedPigTheif { get; set; } = false;
+        public bool firstEpsomBath { get; set; } = true;
     }
 }
