@@ -17,7 +17,7 @@ namespace whoampersandi.OuterWorld
         public bool IsOuterWorld { get; } = true;
         public bool HasEvents { get; set; } = false;
         public (int X, int Y) MapLocationInWorld { get; } = (33, 33);
-        public Dictionary<string, int> PlayerLocation { get; set; }
+        public Dictionary<string, int> PlayerLocation { get; set; } = new();
         public List<Dictionary<IEntity, (int X, int Y)>>? Entities { get; set; } = new()
         {
             new()

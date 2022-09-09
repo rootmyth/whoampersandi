@@ -18,7 +18,7 @@ namespace whoampersandi.OuterWorld
         public bool IsOuterWorld { get; } = true;
         public bool HasEvents { get; set; } = false;
         public (int X, int Y) MapLocationInWorld { get; } = (32, 32);
-        public Dictionary<string, int> PlayerLocation { get; set; }
+        public Dictionary<string, int> PlayerLocation { get; set; } = new();
         public List<Dictionary<IEntity, (int X, int Y)>>? Entities { get; set; } = new()
         {
             new()
@@ -31,7 +31,6 @@ namespace whoampersandi.OuterWorld
         public List<Transpoint> Transpoints { get; } = new()
         {
             new(23, 18, "W", "H3232_PlayersHouse_FrontDoor", "IW3232_PlayersHouse_FrontDoor", false, 32, 32, 31, 24),
-            new(0, 0, "W", "H3232_PlayersStorage_FrontDoor", "IW3233_PlayersStorage_FrontDoor", false, 32, 32, 32, 10)
         };
         public List<List<string>> MapMatrix => new()
         {

@@ -126,25 +126,29 @@ namespace whoampersandi.WorldNavigation
                 case "W":
                     newCoordinates = (locationInWorld.X, locationInWorld.Y - 1);
                     newArea = outerWorld.OuterWorld.FirstOrDefault(area => area.MapLocationInWorld == newCoordinates);
-                    newArea.PlayerLocation = new() { { "X", currentPosition["X"] }, { "Y", 32 } }; 
+                    newArea.PlayerLocation["X"] = currentPosition["X"];
+                    newArea.PlayerLocation["Y"] = 32;
                     break;
 
                 case "D":
                     newCoordinates = (locationInWorld.X + 1, locationInWorld.Y);
                     newArea = outerWorld.OuterWorld.FirstOrDefault(area => area.MapLocationInWorld == newCoordinates);
-                    newArea.PlayerLocation = new() { { "X", 1 }, { "Y", currentPosition["Y"] } };
+                    newArea.PlayerLocation["X"] = 1;
+                    newArea.PlayerLocation["Y"] = currentPosition["Y"];
                     break;
 
                 case "S":
                     newCoordinates = (locationInWorld.X, locationInWorld.Y + 1);
                     newArea = outerWorld.OuterWorld.FirstOrDefault(area => area.MapLocationInWorld == newCoordinates);
-                    newArea.PlayerLocation = new() { { "X", currentPosition["X"] }, { "Y", 1 } };
+                    newArea.PlayerLocation["X"] = currentPosition["X"];
+                    newArea.PlayerLocation["Y"] = 1;
                     break;
 
                 case "A":
                     newCoordinates = (locationInWorld.X - 1, locationInWorld.Y);
                     newArea = outerWorld.OuterWorld.FirstOrDefault(area => area.MapLocationInWorld == newCoordinates);
-                    newArea.PlayerLocation = new() { { "X", 64 }, { "Y", currentPosition["Y"] } };
+                    newArea.PlayerLocation["X"] = 64;
+                    newArea.PlayerLocation["Y"] = currentPosition["Y"];
                     break;
 
                 default:

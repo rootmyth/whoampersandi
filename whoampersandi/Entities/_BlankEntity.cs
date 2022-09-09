@@ -8,7 +8,7 @@ using whoampersandi.Interfaces;
 
 namespace whoampersandi.Entities
 {
-    internal class BlankEntity : IEntity
+    internal class _BlankEntity : IEntity
     {
         public string Appearance { get; } = "";
         public int NumberOfInteractions { get; set; } = 0;

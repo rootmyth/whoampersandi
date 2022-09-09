@@ -11,12 +11,13 @@ using whoampersandi.Interfaces;
 using whoampersandi.WorldNavigation;
 using whoampersandi.State;
 using whoampersandi.Events;
+using whoampersandi.Utilities;
 
 namespace whoampersandi
 {
     public class Game
     {
-        private Player User = new();
+        private static Player User = new();
         private OuterWorldMap OuterWorld = new();
         private InnerWorldMap InnerWorld = new();
         private Renderer Display = new();
@@ -24,7 +25,8 @@ namespace whoampersandi
         private PlayerMovement Movement = new();
         private Dialogue Text = new();
         private GameState State = new();
-        private GlobalEventPrompter EPrompter = new();
+        MainMenu Menu = new();
+
 
         private bool _userIsPlayingGame = true;
 
@@ -43,8 +45,8 @@ namespace whoampersandi
 
                 if (State.newGame)
                 {
-                    areaToDisplay = InnerWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == (32, 32));
-                    //areaToDisplay = OuterWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == (33, 32));
+                    //areaToDisplay = InnerWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == (32, 32));
+                    areaToDisplay = OuterWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == (33, 32));
                     areaToDisplay.PlayerLocation = new() { { "X", 25}, { "Y", 21} };
                 }
 
@@ -57,6 +59,7 @@ namespace whoampersandi
                 Display.RenderStatusBar(User);
                 Display.RenderDialogueBox();
 
+                Console.SetCursorPosition(0, 44);
                 ConsoleKeyInfo userInput = Console.ReadKey();
                 Update(areaToDisplay, OuterWorld, InnerWorld, userInput);
 
@@ -89,6 +92,24 @@ namespace whoampersandi
                     IEntity entity = Interaction.ReturnEntity(currentArea, State);
                     Display.RenderDialogueBox(Text.CreateDialogueBoxText(entity.EngaugeInDialouge(State), User));
                 }
+            }
+            else if (input == "E")
+            {
+                bool usingMenu = true;
+                while (usingMenu)
+                {
+                    Display.RenderMenuFrame();
+                    Menu.DisplayMenu(User);
+                    Console.SetCursorPosition(0, 44);
+                    ConsoleKeyInfo menuInput = Console.ReadKey();
+                    
+                    if (!Menu.UpdateMenu(menuInput))
+                    {
+                        usingMenu = false;
+                    }
+                }
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
         }
     }
