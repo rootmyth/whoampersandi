@@ -46,16 +46,16 @@ namespace whoampersandi.Objects
                 {
                     charLine += rendering[i][j];
                 }
-                Console.SetCursorPosition(X + 1, Y + 1 + i);
+                Console.SetCursorPosition(X - 1, Y + 2 + i);
                 Console.Write(charLine);
             }
         }
         public List<(int X, int Y)> CreateInteractionBox((int X, int Y) locationInArea)
         {
             List<(int, int)> locationPairs = new();
-            for (int i = 0; i < locationInArea.X; i++)
+            for (int i = 0; i < InteractionBoxSize.X; i++)
             {
-                for (int j = 0; j < locationInArea.Y; j++)
+                for (int j = 0; j < InteractionBoxSize.Y; j++)
                 {
                     locationPairs.Add((locationInArea.X + i, locationInArea.Y + j));
                 }

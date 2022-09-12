@@ -29,6 +29,13 @@ namespace whoampersandi.WorldNavigation
 
             Dictionary<IEntity, (int X, int Y)> entities = area.GetEntitiesForState(state);
             Dictionary<IObject, (int X, int Y)> objects = area.GetObjectsForState(state);
+
+            List<(int X, int Y)> objectCoordinatesList = new();
+            foreach (KeyValuePair<IObject, (int X, int Y)> obj in objects)
+            {
+                objectCoordinatesList.AddRange(obj.Key.CreateInteractionBox(obj.Value));
+            }
+
             string charAbove = "";
             string charToRight = "";
             string charBelow = "";
@@ -51,19 +58,19 @@ namespace whoampersandi.WorldNavigation
                 charToLeft = area.Map[playerRow - 1][playerCol - 2];
             }
 
-            if (validStrings.Contains(charAbove) && !entities.ContainsValue((playerCol, playerRow - 1)))
+            if (validStrings.Contains(charAbove) && !entities.ContainsValue((playerCol, playerRow - 1)) && !objectCoordinatesList.Contains((playerCol, playerRow - 1)))
             {
                 validMoves["Up"] = true;
             }
-            if (validStrings.Contains(charToRight) && !entities.ContainsValue((playerCol + 1, playerRow)))
+            if (validStrings.Contains(charToRight) && !entities.ContainsValue((playerCol + 1, playerRow)) && !objectCoordinatesList.Contains((playerCol + 1, playerRow)))
             {
                 validMoves["Right"] = true;
             }
-            if (validStrings.Contains(charBelow) && !entities.ContainsValue((playerCol, playerRow + 1)))
+            if (validStrings.Contains(charBelow) && !entities.ContainsValue((playerCol, playerRow + 1)) && !objectCoordinatesList.Contains((playerCol, playerRow + 1)))
             {
                 validMoves["Down"] = true;
             }
-            if (validStrings.Contains(charToLeft) && !entities.ContainsValue((playerCol - 1, playerRow)))
+            if (validStrings.Contains(charToLeft) && !entities.ContainsValue((playerCol - 1, playerRow)) && !objectCoordinatesList.Contains((playerCol - 1, playerRow)))
             {
                 validMoves["Left"] = true;
             }

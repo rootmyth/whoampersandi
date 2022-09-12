@@ -17,5 +17,6 @@ namespace whoampersandi.Interfaces
         Dictionary<int, List<List<string>>> RenderingList { get; }
         List<List<string>> DefaultRendering { get; }
         void RenderObject(int X, int Y);
+        List<(int X, int Y)> CreateInteractionBox((int X, int Y) locationInArea);
     }
 }
