@@ -23,9 +23,9 @@ namespace whoampersandi.OuterWorld
         {
             new()
             {
-                { new Pig(), (48, 11) },
-                { new Pig(), (40, 13) },
-                { new FishermanKoceilah(), (20, 28) }
+                { new Pig(), (47, 9) },
+                { new Pig(), (39, 12) },
+                { new FishermanKoceilah(), (19, 27) }
             },
         };
         public List<Dictionary<IObject, (int X, int Y)>>? Objects { get; set; } = new()
@@ -37,7 +37,7 @@ namespace whoampersandi.OuterWorld
         };
         public List<Transpoint> Transpoints { get; } = new()
         {
-            new(24, 18, "W", "H3232_PlayersHouse_FrontDoor", "IW3232_PlayersHouse_FrontDoor", false, 32, 32, 36, 24),
+            new(23, 17, "W", "H3232_PlayersHouse_FrontDoor", "IW3232_PlayersHouse_FrontDoor", false, 32, 32, 35, 23),
         };
         public List<List<string>> MapMatrix => new()
         {
@@ -126,16 +126,38 @@ namespace whoampersandi.OuterWorld
 
         public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects)
         {
-            int row = 1;
+            List<(IObject areaObject, (int X, int Y) location, List<(int X, int Y)> boxCoords)> objectList = new();
+            foreach (KeyValuePair<IObject, (int, int)> obj in objects)
+            {
+                objectList.Add((obj.Key, obj.Value, obj.Key.CreateInteractionBox(obj.Value)));
+            }
+
+            List<(int X, int Y)> objectCoordinatesList = new();
+            foreach (KeyValuePair<IObject, (int X, int Y)> obj in objects)
+            {
+                objectCoordinatesList.AddRange(obj.Key.CreateInteractionBox(obj.Value));
+            }
+
+            int row = 0;
             foreach (List<string> consoleLineList in Map)
             {
-                int column = 1;
+                int column = 0;
                 string consoleLineChars = "";
                 foreach (string character in consoleLineList)
                 {
                     if (entities.ContainsValue((column, row)))
                     {
                         consoleLineChars += entities.FirstOrDefault(entity => entity.Value == (column, row)).Key.Appearance;
+                    }
+                    else if (objectCoordinatesList.Contains((column, row)))
+                    {
+                        foreach ((IObject areaObject, (int X, int Y) location, List<(int X, int Y)> boxCoords) obj in objectList)
+                        {
+                            if (obj.boxCoords.Contains((column, row)))
+                            {
+                                consoleLineChars += obj.areaObject.ReturnRendering()[row - obj.location.Y][column - obj.location.X];
+                            }
+                        }
                     }
                     else if (PlayerLocation["X"] == column && PlayerLocation["Y"] == row)
                     {

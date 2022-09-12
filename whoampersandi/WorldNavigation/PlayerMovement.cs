@@ -41,21 +41,21 @@ namespace whoampersandi.WorldNavigation
             string charBelow = "";
             string charToLeft = "";
 
-            if (playerRow != 1)
+            if (playerRow != 0)
             {
-                charAbove = area.Map[playerRow - 2][playerCol - 1];
+                charAbove = area.Map[playerRow - 1][playerCol];
             }
-            if (playerCol != 64)
+            if (playerCol != 63)
             {
-                charToRight = area.Map[playerRow - 1][playerCol];
+                charToRight = area.Map[playerRow][playerCol + 1];
             }
-            if (playerRow != 32)
+            if (playerRow != 31)
             {
-                charBelow = area.Map[playerRow][playerCol - 1];
+                charBelow = area.Map[playerRow + 1][playerCol];
             }
-            if (playerCol != 1)
+            if (playerCol != 0)
             {
-                charToLeft = area.Map[playerRow - 1][playerCol - 2];
+                charToLeft = area.Map[playerRow][playerCol - 1];
             }
 
             if (validStrings.Contains(charAbove) && !entities.ContainsValue((playerCol, playerRow - 1)) && !objectCoordinatesList.Contains((playerCol, playerRow - 1)))
@@ -86,19 +86,19 @@ namespace whoampersandi.WorldNavigation
             int playerY = area.PlayerLocation["Y"];
 
             bool newOuterArea = false;
-            if (input == "W" && playerY == 1)
+            if (input == "W" && playerY == 0)
             {
                 newOuterArea = true;
             }
-            else if (input == "D" && playerX == 64)
+            else if (input == "D" && playerX == 63)
             {
                 newOuterArea = true;
             }
-            else if (input == "S" && playerY == 32)
+            else if (input == "S" && playerY == 31)
             {
                 newOuterArea = true;
             }
-            else if (input == "A" && playerX == 1)
+            else if (input == "A" && playerX == 0)
             {
                 newOuterArea = true;
             }
@@ -135,13 +135,13 @@ namespace whoampersandi.WorldNavigation
                     newCoordinates = (locationInWorld.X, locationInWorld.Y - 1);
                     newArea = outerWorld.OuterWorld.FirstOrDefault(area => area.MapLocationInWorld == newCoordinates);
                     newArea.PlayerLocation["X"] = currentPosition["X"];
-                    newArea.PlayerLocation["Y"] = 32;
+                    newArea.PlayerLocation["Y"] = 31;
                     break;
 
                 case "D":
                     newCoordinates = (locationInWorld.X + 1, locationInWorld.Y);
                     newArea = outerWorld.OuterWorld.FirstOrDefault(area => area.MapLocationInWorld == newCoordinates);
-                    newArea.PlayerLocation["X"] = 1;
+                    newArea.PlayerLocation["X"] = 0;
                     newArea.PlayerLocation["Y"] = currentPosition["Y"];
                     break;
 
@@ -149,13 +149,13 @@ namespace whoampersandi.WorldNavigation
                     newCoordinates = (locationInWorld.X, locationInWorld.Y + 1);
                     newArea = outerWorld.OuterWorld.FirstOrDefault(area => area.MapLocationInWorld == newCoordinates);
                     newArea.PlayerLocation["X"] = currentPosition["X"];
-                    newArea.PlayerLocation["Y"] = 1;
+                    newArea.PlayerLocation["Y"] = 0;
                     break;
 
                 case "A":
                     newCoordinates = (locationInWorld.X - 1, locationInWorld.Y);
                     newArea = outerWorld.OuterWorld.FirstOrDefault(area => area.MapLocationInWorld == newCoordinates);
-                    newArea.PlayerLocation["X"] = 64;
+                    newArea.PlayerLocation["X"] = 63;
                     newArea.PlayerLocation["Y"] = currentPosition["Y"];
                     break;
 

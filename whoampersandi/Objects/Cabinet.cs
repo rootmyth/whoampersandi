@@ -31,24 +31,14 @@ namespace whoampersandi.Objects
         public List<string> ObjectLine01 { get; } = new List<string>() { "=", "=", "="};
         public List<string> ObjectLine02 { get; } = new List<string>() { "[", "-", "]" };
         public List<string> ObjectLine03 { get; } = new List<string>() { "=", "=", "=" };
-        public void RenderObject(int X, int Y)
+        public List<List<string>> ReturnRendering()
         {
             List<List<string>> rendering = new();
             if (State == 1)
             {
                 rendering = StateVariants.FirstOrDefault(rendering => rendering.Key == 1).Value;
             }
-
-            for (int i = 0; i < rendering.Count; i++)
-            {
-                string charLine = "";
-                for (int j = 0; j < rendering[i].Count; j++)
-                {
-                    charLine += rendering[i][j];
-                }
-                Console.SetCursorPosition(X - 1, Y + 2 + i);
-                Console.Write(charLine);
-            }
+            return rendering;
         }
         public List<(int X, int Y)> CreateInteractionBox((int X, int Y) locationInArea)
         {
