@@ -50,5 +50,17 @@ namespace whoampersandi.Objects
                 Console.Write(charLine);
             }
         }
+        public List<(int X, int Y)> CreateInteractionBox((int X, int Y) locationInArea)
+        {
+            List<(int, int)> locationPairs = new();
+            for (int i = 0; i < locationInArea.X; i++)
+            {
+                for (int j = 0; j < locationInArea.Y; j++)
+                {
+                    locationPairs.Add((locationInArea.X + i, locationInArea.Y + j));
+                }
+            }
+            return locationPairs;
+        }
     }
 }

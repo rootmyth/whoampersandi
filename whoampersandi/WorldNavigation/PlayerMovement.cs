@@ -28,6 +28,7 @@ namespace whoampersandi.WorldNavigation
             int playerCol = area.PlayerLocation["X"];
 
             Dictionary<IEntity, (int X, int Y)> entities = area.GetEntitiesForState(state);
+            Dictionary<IObject, (int X, int Y)> objects = area.GetObjectsForState(state);
             string charAbove = "";
             string charToRight = "";
             string charBelow = "";
