@@ -11,7 +11,6 @@ using whoampersandi.Interfaces;
 using whoampersandi.WorldNavigation;
 using whoampersandi.State;
 using whoampersandi.Events;
-using whoampersandi.Utilities;
 
 namespace whoampersandi
 {
@@ -52,10 +51,10 @@ namespace whoampersandi
 
                 if (areaToDisplay.HasEvents)
                 {
-                    areaToDisplay.GetAreaEvents(areaToDisplay, User, areaToDisplay.GetEntitiesForState(State), OuterWorld, InnerWorld, State);
+                    areaToDisplay.GetAreaEvents(areaToDisplay, User, areaToDisplay.GetEntitiesForState(State), areaToDisplay.GetObjectsForState(State), OuterWorld, InnerWorld, State);
                 }
                 Display.RenderLevelBar(User, areaToDisplay);
-                Display.RenderWorldViewer(User, areaToDisplay.GetEntitiesForState(State), areaToDisplay);
+                Display.RenderWorldViewer(User, areaToDisplay.GetEntitiesForState(State), areaToDisplay.GetObjectsForState(State), areaToDisplay);
                 Display.RenderStatusBar(User);
                 Display.RenderDialogueBox();
 
@@ -90,7 +89,7 @@ namespace whoampersandi
                 if (Interaction.CheckEntityProxy(currentArea, State))
                 {
                     IEntity entity = Interaction.ReturnEntity(currentArea, State);
-                    Display.RenderDialogueBox(Text.CreateDialogueBoxText(entity.EngaugeInDialouge(State), User));
+                    Display.RenderDialogueBox(Text.CreateDialogueBoxText(entity.EngaugeInDialouge(State), 60, 5, User));
                 }
             }
             else if (input == "E")

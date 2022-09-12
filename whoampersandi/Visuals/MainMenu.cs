@@ -51,23 +51,23 @@ namespace whoampersandi.Visuals
             Console.BackgroundColor = ConsoleColor.Black;
             if (MainMenuIndex == 0)
             {
-                Display.RenderInformationBox(Text.CreateDialogueBoxText("The player menu gives information on your stats, allows you to spend experience points to increase them, and give information on how they affect battle.  You can also view details on techniques you know, and select which ones you want to use against opponents."));
+                Display.RenderInformationBox(Text.CreateDialogueBoxText("The player menu gives information on your stats, allows you to spend experience points to increase them, and give information on how they affect battle.  You can also view details on techniques you know, and select which ones you want to use against opponents.", 60, 5));
             }
             else if (MainMenuIndex == 1)
             {
-                Display.RenderInformationBox(Text.CreateDialogueBoxText("The equipment menu allows you to equip and unequip things like weapons and shields for combat.  You can also get more information on each piece of equipment's stats like damage and condition."));
+                Display.RenderInformationBox(Text.CreateDialogueBoxText("The equipment menu allows you to equip and unequip things like weapons and shields for combat.  You can also get more information on each piece of equipment's stats like damage and condition.", 60, 5));
             }
             else if (MainMenuIndex == 2)
             {
-                Display.RenderInformationBox(Text.CreateDialogueBoxText("The item menu allows you to equip and unequip items for combat.  You can also get more information on what each item does."));
+                Display.RenderInformationBox(Text.CreateDialogueBoxText("The item menu allows you to equip and unequip items for combat.  You can also get more information on what each item does.", 60, 5));
             }
             else if (MainMenuIndex == 3)
             {
-                Display.RenderInformationBox(Text.CreateDialogueBoxText("Save your game."));
+                Display.RenderInformationBox(Text.CreateDialogueBoxText("Save your game.", 60, 5));
             }
             else if (MainMenuIndex == 4)
             {
-                Display.RenderInformationBox(Text.CreateDialogueBoxText("Exit the main menu."));
+                Display.RenderInformationBox(Text.CreateDialogueBoxText("Exit the main menu.", 60, 5));
             }
         }
         public bool UpdateMenu(ConsoleKeyInfo menuInput)

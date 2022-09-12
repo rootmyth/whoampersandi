@@ -9,10 +9,14 @@ namespace whoampersandi.Visuals
 {
     public class Dialogue
     {
-        public List<List<string>> CreateDialogueBoxText(string dialogue)
+        public List<List<string>> CreateDialogueBoxText(string dialogue, int width, int height)
         {
             List<List<string>> Boxes = new();
-            List<string> Lines = new() { "", "", "", "", "" };
+            List<string> Lines = new();
+            for (int i = 0; i < height; i++)
+            {
+                Lines.Add("");
+            }
 
             string[] dialogueAsArray = dialogue.Split(" ");
 
@@ -23,14 +27,19 @@ namespace whoampersandi.Visuals
             for (int i = 0; i < dialogueAsArray.Length; i++)
             {
                 lineCharCount = lineCharCount + dialogueAsArray[i].Length;
-                if (lineCharCount == 60)
+                if (lineCharCount == width)
                 {
                     newLine += dialogueAsArray[i];
                     Lines[lineIndex] = newLine;
                     lineIndex++;
-                    if (Lines[4] != "")
+                    if (Lines[height - 1] != "")
                     {
-                        Boxes.Add(new() { "", "", "", "", "" });
+                        List<string> newBoxSet = new();
+                        for (int j = 0; j < height; j++)
+                        {
+                            newBoxSet.Add("");
+                        }
+                        Boxes.Add(newBoxSet);
                         for (int j = 0; j < Lines.Count; j++)
                         {
                             Boxes[boxesIndex][j] += Lines[j];
@@ -42,18 +51,23 @@ namespace whoampersandi.Visuals
                     lineCharCount = 0;
                     newLine = "";
                 }
-                else if (lineCharCount > 60)
+                else if (lineCharCount > width)
                 {
-                    int blankSpacesToAdd = 60 - lineCharCount + dialogueAsArray[i].Length;
+                    int blankSpacesToAdd = width - lineCharCount + dialogueAsArray[i].Length;
                     for (int j = 0; j < blankSpacesToAdd; j++)
                     {
                         newLine += " ";
                     }
                     Lines[lineIndex] = newLine;
                     lineIndex++;
-                    if (Lines[4] != "")
+                    if (Lines[height - 1] != "")
                     {
-                        Boxes.Add(new() { "", "", "", "", "" });
+                        List<string> newBoxSet = new();
+                        for (int j = 0; j < height; j++)
+                        {
+                            newBoxSet.Add("");
+                        }
+                        Boxes.Add(newBoxSet);
                         for (int j = 0; j < Lines.Count; j++)
                         {
                             Boxes[boxesIndex][j] += Lines[j];
@@ -73,23 +87,32 @@ namespace whoampersandi.Visuals
                 }
                 if (i + 1 == dialogueAsArray.Length)
                 {
-                    if (lineCharCount <= 60)
+                    if (lineCharCount <= width)
                     {
-                        int blankSpacesToAdd = 60 - lineCharCount;
+                        int blankSpacesToAdd = width - lineCharCount;
                         for (int j = 0; j < blankSpacesToAdd; j++)
                         {
                             newLine += " ";
                         }
                         Lines[lineIndex] = newLine;
                         lineIndex++;
-                        newLine = @"                                                            ";
-                        int blankLinesToAdd = 5 - lineIndex;
+                        newLine = "";
+                        for (int j = 0; j < width; j++)
+                        {
+                            newLine += " ";
+                        }
+                        int blankLinesToAdd = height - lineIndex;
                         for (int j = 0; j < blankLinesToAdd; j++)
                         {
                             Lines[lineIndex] = newLine;
                             lineIndex++;
                         }
-                        Boxes.Add(new() { "", "", "", "", "" });
+                        List<string> newBoxSet = new();
+                        for (int j = 0; j < height; j++)
+                        {
+                            newBoxSet.Add("");
+                        }
+                        Boxes.Add(newBoxSet);
                         for (int j = 0; j < Lines.Count; j++)
                         {
                             Boxes[boxesIndex][j] += Lines[j];
@@ -100,11 +123,15 @@ namespace whoampersandi.Visuals
             }
             return Boxes;
         }
-        public List<List<string>> CreateDialogueBoxText(string dialogue, Player player)
+        public List<List<string>> CreateDialogueBoxText(string dialogue, int width, int height, Player player)
         {
             List<List<string>> Boxes = new();
-            List<string> Lines = new() { "", "", "", "", "" };
-            
+            List<string> Lines = new();
+            for (int i = 0; i < height; i++)
+            {
+                Lines.Add("");
+            }
+
             string[] dialogueAsArray = dialogue.Split(" ");
 
             int lineCharCount = 0;
@@ -120,14 +147,19 @@ namespace whoampersandi.Visuals
                     
                 }
                 lineCharCount = lineCharCount + dialogueAsArray[i].Length;
-                if (lineCharCount == 60)
+                if (lineCharCount == width)
                 {
                     newLine += dialogueAsArray[i];
                     Lines[lineIndex] = newLine;
                     lineIndex++;
-                    if (Lines[4] != "")
+                    if (Lines[height - 1] != "")
                     {
-                        Boxes.Add(new() { "", "", "", "", "" });
+                        List<string> newBoxSet = new();
+                        for (int j = 0; j < height; j++)
+                        {
+                            newBoxSet.Add("");
+                        }
+                        Boxes.Add(newBoxSet);
                         for (int j = 0; j < Lines.Count; j++)
                         {
                             Boxes[boxesIndex][j] += Lines[j];
@@ -139,18 +171,23 @@ namespace whoampersandi.Visuals
                     lineCharCount = 0;
                     newLine = "";
                 }
-                else if (lineCharCount > 60)
+                else if (lineCharCount > width)
                 {
-                    int blankSpacesToAdd = 60 - lineCharCount + dialogueAsArray[i].Length;
+                    int blankSpacesToAdd = width - lineCharCount + dialogueAsArray[i].Length;
                     for (int j = 0; j < blankSpacesToAdd; j++)
                     {
                         newLine += " ";
                     }
                     Lines[lineIndex] = newLine;
                     lineIndex++;
-                    if (Lines[4] != "")
+                    if (Lines[height - 1] != "")
                     {
-                        Boxes.Add(new() { "", "", "", "", "" });
+                        List<string> newBoxSet = new();
+                        for (int j = 0; j < height; j++)
+                        {
+                            newBoxSet.Add("");
+                        }
+                        Boxes.Add(newBoxSet);
                         for (int j = 0; j < Lines.Count; j++)
                         {
                             Boxes[boxesIndex][j] += Lines[j];
@@ -170,7 +207,7 @@ namespace whoampersandi.Visuals
                 }
                 if (i + 1 == dialogueAsArray.Length)
                 {
-                    if (lineCharCount <= 60)
+                    if (lineCharCount <= width)
                     {
                         int blankSpacesToAdd = 60 - lineCharCount;
                         for (int j = 0; j < blankSpacesToAdd; j++)
@@ -179,14 +216,23 @@ namespace whoampersandi.Visuals
                         }
                         Lines[lineIndex] = newLine;
                         lineIndex++;
-                        newLine = @"                                                            ";
-                        int blankLinesToAdd = 5 - lineIndex;
+                        newLine = "";
+                        for (int j = 0; j < width; j++)
+                        {
+                            newLine += " ";
+                        }
+                        int blankLinesToAdd = height - lineIndex;
                         for (int j = 0; j < blankLinesToAdd; j++)
                         {
                             Lines[lineIndex] = newLine;
                             lineIndex++;
                         }
-                        Boxes.Add(new() { "", "", "", "", "" });
+                        List<string> newBoxSet = new();
+                        for (int j = 0; j < height; j++)
+                        {
+                            newBoxSet.Add("");
+                        }
+                        Boxes.Add(newBoxSet);
                         for (int j = 0; j < Lines.Count; j++)
                         {
                             Boxes[boxesIndex][j] += Lines[j];

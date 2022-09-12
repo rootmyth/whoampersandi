@@ -14,6 +14,8 @@ namespace whoampersandi.Visuals
     {
         private LevelBar LevelBar = new();
         private StatusBar StatusBar = new();
+        private Notification Notify = new();
+        private Dialogue Text = new();
 
         public void RenderLevelBar(bool whiteSpace)
         {
@@ -80,10 +82,10 @@ namespace whoampersandi.Visuals
                                                                 
                                                                 ");
         }
-        public void RenderWorldViewer(Player player, Dictionary<IEntity, (int, int)> entities, IArea area)
+        public void RenderWorldViewer(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, IArea area)
         {
             Console.SetCursorPosition(0, 3);
-            area.RenderMap(player, entities);
+            area.RenderMap(player, entities, objects);
         }
         public void RenderStatusBar(bool whiteSpace)
         {
@@ -115,8 +117,9 @@ namespace whoampersandi.Visuals
         }
         public void RenderDialogueBox()
         {
-            Console.SetCursorPosition(0, 38);
-            Console.WriteLine(@"|                                                              |
+            Console.SetCursorPosition(0, 37);
+            Console.WriteLine(@"================================================================
+|                                                              |
 |                                                              |
 |                                                              |
 |                                                              |
@@ -127,8 +130,9 @@ namespace whoampersandi.Visuals
         {
             for (int i = 0; i < dialogue.Count; i++)
             {
-                Console.SetCursorPosition(0, 38);
-                Console.WriteLine($@"| {dialogue[i][0]} |
+                Console.SetCursorPosition(0, 37);
+                Console.WriteLine($@"================================================================
+| {dialogue[i][0]} |
 | {dialogue[i][1]} |
 | {dialogue[i][2]} |
 | {dialogue[i][3]} |
@@ -164,6 +168,11 @@ namespace whoampersandi.Visuals
                     if (input.Key.ToString() == "Spacebar")
                     {
                         spacebar = true;
+                    }
+                    else
+                    {
+                        Notify.RenderNotification(Text.CreateDialogueBoxText("Use the spacebar to scroll through dialogue.", 34, 2));
+                        RenderWorldViewer();
                     }
                 }
             }

@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using whoampersandi.Interfaces;
+using whoampersandi.State;
+
+namespace whoampersandi.Objects
+{
+    public class Cabinet : IObject
+    {
+        public string Description { get; } = "cabinet";
+
+        public bool IsStorage { get; } = true;
+
+        public int StorageCapacity { get; } = 16;
+
+        public List<string>? ItemsInStorage { get; set; }
+
+        public (int X, int Y) InteractionBoxSize { get; } = (3, 3);
+
+        public int State { get; set; } = 1;
+
+        public Dictionary<int, List<List<string>>> StateVariants { get { return RenderingList; } set { StateVariants = RenderingList; } }
+        public Dictionary<int, List<List<string>>> RenderingList => new()
+        {
+            { 1, DefaultRendering }
+        };
+        public List<List<string>> DefaultRendering => new() { ObjectLine01, ObjectLine02, ObjectLine03 };
+        public List<string> ObjectLine01 { get; } = new List<string>() { "=", "=", "="};
+        public List<string> ObjectLine02 { get; } = new List<string>() { "[", "-", "]" };
+        public List<string> ObjectLine03 { get; } = new List<string>() { "=", "=", "=" };
+        public void RenderObject(int X, int Y)
+        {
+            List<List<string>> rendering = new();
+            if (State == 1)
+            {
+                rendering = StateVariants.FirstOrDefault(rendering => rendering.Key == 1).Value;
+            }
+
+            for (int i = 0; i < rendering.Count; i++)
+            {
+                string charLine = "";
+                for (int j = 0; j < rendering[i].Count; j++)
+                {
+                    charLine += rendering[i][j];
+                }
+                Console.SetCursorPosition(X + 1, Y + 1 + i);
+                Console.Write(charLine);
+            }
+        }
+    }
+}

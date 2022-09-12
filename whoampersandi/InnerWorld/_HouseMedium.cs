@@ -27,6 +27,13 @@ namespace whoampersandi.InnerWorld
 
             },
         };
+        public List<Dictionary<IObject, (int X, int Y)>>? Objects { get; set; } = new()
+        {
+            new()
+            {
+                
+            },
+        };
         public List<Transpoint> Transpoints { get; } = new()
         {
             
@@ -106,7 +113,12 @@ namespace whoampersandi.InnerWorld
             return Entities[0];
         }
 
-        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap outerWorld, InnerWorldMap innerWorld, GameState state)
+        public Dictionary<IObject, (int X, int Y)> GetObjectsForState(GameState state)
+        {
+            return Objects[0];
+        }
+
+        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerWorld, InnerWorldMap innerWorld, GameState state)
         {
             if (false)
             {
@@ -116,7 +128,7 @@ namespace whoampersandi.InnerWorld
             }
         }
 
-        public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities)
+        public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects)
         {
             int row = 1;
             foreach (List<string> consoleLineList in Map)

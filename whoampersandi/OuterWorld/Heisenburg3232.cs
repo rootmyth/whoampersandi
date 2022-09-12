@@ -28,9 +28,16 @@ namespace whoampersandi.OuterWorld
                 { new FishermanKoceilah(), (20, 28) }
             },
         };
+        public List<Dictionary<IObject, (int X, int Y)>>? Objects { get; set; } = new()
+        {
+            new()
+            {
+
+            },
+        };
         public List<Transpoint> Transpoints { get; } = new()
         {
-            new(23, 18, "W", "H3232_PlayersHouse_FrontDoor", "IW3232_PlayersHouse_FrontDoor", false, 32, 32, 31, 24),
+            new(24, 18, "W", "H3232_PlayersHouse_FrontDoor", "IW3232_PlayersHouse_FrontDoor", false, 32, 32, 36, 24),
         };
         public List<List<string>> MapMatrix => new()
         {
@@ -85,8 +92,8 @@ namespace whoampersandi.OuterWorld
         public List<string> MapLine14 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", "/", "_", "_", "_", "_", "_", "_", "_", "\\", " ", "/", " ", "/", "-", "|", "_", "|", "-", "\\", " ", "\\", " ", " ", " ", " ", " ", " ", " ", " ", "|", "|", " ", " ", " ", " ", " ", "@", "_", ")", " ", " ", " ", " ", " ", " ", " ", " ", " ", ".", ",", ".", " ", " ", " ", " ", " ", " " };
         public List<string> MapLine15 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", "|", "-", "-", "-", "-", "-", "-", "-", "|", " ", "/", "/", "-", "_", "-", "-", "-", "_", "-", "\\", "\\", " ", " ", " ", " ", " ", " ", " ", " ", "|", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " " };
         public List<string> MapLine16 { get; set; } = new List<string>() { " ", " ", " ", ".", ",", ".", " ", "|", "-", "-", "_", "_", "_", "-", "-", "|", " ", "|", "-", "|", "_", "|", "-", "|", "_", "|", "-", "|", " ", " ", " ", " ", " ", " ", " ", " ", "|", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", " ", " ", " ", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_" };
-        public List<string> MapLine17 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", "|", "_", "_", "|", " ", "|", "_", "_", "|", " ", "|", "-", "-", "-", "_", "_", "_", "-", "-", "-", "|", " ", " ", " ", " ", " ", " ", " ", " ", "|", "_", "_", "_", "_", "_", "_", "_", "_", "/", " ", "|", " ", "|", " ", "\\", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_" };
-        public List<string> MapLine18 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "*", "|", "_", "_", "_", "|", " ", "|", "_", "_", "_", "|", "*", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", "/", " ", " ", " ", "\\", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", };
+        public List<string> MapLine17 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", "|", "_", "_", "|", " ", "|", "_", "_", "|", " ", "|", "-", "-", "-", "-", "_", "_", "_", "-", "-", "|", " ", " ", " ", " ", " ", " ", " ", " ", "|", "_", "_", "_", "_", "_", "_", "_", "_", "/", " ", "|", " ", "|", " ", "\\", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_" };
+        public List<string> MapLine18 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "*", "|", "_", "_", "_", "_", "|", " ", "|", "_", "_", "|", "*", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", "/", " ", " ", " ", "\\", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", };
         public List<string> MapLine19 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "*", "*", "*", " ", " ", " ", " ", " ", " ", " ", "*", "*", "*", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " " };
         public List<string> MapLine20 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " " };
         public List<string> MapLine21 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", "_", "_", "_", "_", "_", "_", "_", "_", "_", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "_", "_", "_", "_", "_", " ", " ", " " };
@@ -107,12 +114,17 @@ namespace whoampersandi.OuterWorld
             return Entities[0];
         }
 
-        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state)
+        public Dictionary<IObject, (int X, int Y)> GetObjectsForState(GameState state)
+        {
+            return Objects[0];
+        }
+
+        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state)
         {
 
         }
 
-        public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities)
+        public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects)
         {
             int row = 1;
             foreach (List<string> consoleLineList in Map)

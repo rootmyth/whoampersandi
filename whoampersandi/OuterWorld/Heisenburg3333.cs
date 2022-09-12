@@ -25,6 +25,13 @@ namespace whoampersandi.OuterWorld
 
             },
         };
+        public List<Dictionary<IObject, (int X, int Y)>>? Objects { get; set; } = new()
+        {
+            new()
+            {
+
+            },
+        };
         public List<Transpoint> Transpoints { get; } = new()
         {
 
@@ -104,12 +111,17 @@ namespace whoampersandi.OuterWorld
             return Entities[0];
         }
 
-        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state)
+        public Dictionary<IObject, (int X, int Y)> GetObjectsForState(GameState state)
+        {
+            return Objects[0];
+        }
+
+        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state)
         {
 
         }
 
-        public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities)
+        public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects)
         {
             int row = 1;
             foreach (List<string> consoleLineList in Map)
@@ -118,9 +130,14 @@ namespace whoampersandi.OuterWorld
                 string consoleLineChars = "";
                 foreach (string character in consoleLineList)
                 {
+                    
                     if (entities.ContainsValue((column, row)))
                     {
                         consoleLineChars += entities.FirstOrDefault(entity => entity.Value == (column, row)).Key.Appearance;
+                    }
+                    else if (objects.ContainsValue((column, row)))
+                    {
+
                     }
                     else if (PlayerLocation["X"] == column && PlayerLocation["Y"] == row)
                     {

@@ -30,6 +30,13 @@ namespace whoampersandi.OuterWorld
                 { new GoodSamaritan(), (26, 21)}
             }
         };
+        public List<Dictionary<IObject, (int X, int Y)>>? Objects { get; set; } = new()
+        {
+            new()
+            {
+
+            },
+        };
         public List<Transpoint> Transpoints { get; } = new()
         {
 
@@ -116,17 +123,22 @@ namespace whoampersandi.OuterWorld
             return entities;
         }
 
-        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state)
+        public Dictionary<IObject, (int X, int Y)> GetObjectsForState(GameState state)
+        {
+            return Objects[0];
+        }
+
+        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state)
         {
             if (state.newGame)
             {
                 NewGame e = new();
-                e.EventSequence(area, player, entities, outerworld, innerWorld, state);
+                e.EventSequence(area, player, entities, objects, outerworld, innerWorld, state);
                 state.newGame = false;
             }
         }
 
-        public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities)
+        public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects)
         {
             int row = 1;
             foreach (List<string> consoleLineList in Map)
