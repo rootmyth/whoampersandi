@@ -11,6 +11,7 @@ using whoampersandi.Interfaces;
 using whoampersandi.WorldNavigation;
 using whoampersandi.State;
 using whoampersandi.Events;
+using whoampersandi.Menus;
 
 namespace whoampersandi
 {
@@ -23,8 +24,9 @@ namespace whoampersandi
         private PlayerInteraction Interaction = new();
         private PlayerMovement Movement = new();
         private Dialogue Text = new();
-        private GameState State = new();
-        MainMenu Menu = new();
+        private EventState EState = new();
+        private InformationState InfoState = new();
+        private MainMenu Menu = new();
 
 
         private bool _userIsPlayingGame = true;
@@ -42,7 +44,7 @@ namespace whoampersandi
                 
                 Console.SetCursorPosition(0, 0);
 
-                if (State.newGame)
+                if (EState.newGame)
                 {
                     //areaToDisplay = InnerWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == (32, 32));
                     areaToDisplay = OuterWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == (33, 32));
@@ -51,10 +53,10 @@ namespace whoampersandi
 
                 if (areaToDisplay.HasEvents)
                 {
-                    areaToDisplay.GetAreaEvents(areaToDisplay, User, areaToDisplay.GetEntitiesForState(State), areaToDisplay.GetObjectsForState(State), OuterWorld, InnerWorld, State);
+                    areaToDisplay.GetAreaEvents(areaToDisplay, User, areaToDisplay.GetEntitiesForState(EState), areaToDisplay.GetObjectsForState(EState), OuterWorld, InnerWorld, EState);
                 }
                 Display.RenderLevelBar(User, areaToDisplay);
-                Display.RenderWorldViewer(User, areaToDisplay.GetEntitiesForState(State), areaToDisplay.GetObjectsForState(State), areaToDisplay);
+                Display.RenderWorldViewer(User, areaToDisplay.GetEntitiesForState(EState), areaToDisplay.GetObjectsForState(EState), areaToDisplay);
                 Display.RenderStatusBar(User);
                 Display.RenderDialogueBox();
 
@@ -81,24 +83,30 @@ namespace whoampersandi
                 }
                 else
                 {
-                    areaToDisplay.PlayerLocation = Movement.MovePlayerWithinArea(currentArea, State, userInput);
+                    areaToDisplay.PlayerLocation = Movement.MovePlayerWithinArea(currentArea, EState, userInput);
                 }
             }
             else if (input == "Spacebar")
             {
-                if (Interaction.CheckEntityProxy(currentArea, State))
+                if (Interaction.CheckEntityProxy(currentArea, EState))
                 {
-                    IEntity entity = Interaction.ReturnEntity(currentArea, State);
-                    Display.RenderDialogueBox(Text.CreateDialogueBoxText(entity.EngaugeInDialouge(State), 60, 5, User));
+                    IEntity entity = Interaction.ReturnEntity(currentArea, EState);
+                    Display.RenderDialogueBox(Text.CreateDialogueBoxText(entity.EngaugeInDialouge(EState), 60, 5, User));
+                }
+                else if (Interaction.CheckObjectProxy(currentArea, EState))
+                {
+                    IObject obj = Interaction.ReturnObject(currentArea, EState);
+                    obj.InteractWithObject(User, InfoState);
                 }
             }
             else if (input == "E")
             {
+                Display.RenderMenuFrame();
                 bool usingMenu = true;
                 while (usingMenu)
                 {
-                    Display.RenderMenuFrame();
-                    Menu.DisplayMenu(User);
+                    
+                    Menu.DisplayMainMenu(User);
                     Console.SetCursorPosition(0, 44);
                     ConsoleKeyInfo menuInput = Console.ReadKey();
                     

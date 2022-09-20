@@ -19,7 +19,7 @@ namespace whoampersandi.Entities
             { 2, $"{Name}: Oink...oink...oink........oink" },
             { 3, $"{Name}: OINK!!!" }
         };
-        public string EngaugeInDialouge(GameState state)
+        public string EngaugeInDialouge(EventState state)
         {
             Random rnd = new Random();
             int index = rnd.Next(EntityDialogue.Count);

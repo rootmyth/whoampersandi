@@ -14,6 +14,6 @@ namespace whoampersandi.Interfaces
     public interface IEvent
     {
         string EventName { get; }
-        void EventSequence(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerWorld, InnerWorldMap innerWorld,  GameState state);
+        void EventSequence(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerWorld, InnerWorldMap innerWorld,  EventState state);
     }
 }

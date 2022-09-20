@@ -53,9 +53,9 @@ namespace whoampersandi.Interfaces
         List<string> MapLine30 { get; set; }
         List<string> MapLine31 { get; set; }
         List<string> MapLine32 { get; set; }
-        Dictionary<IEntity, (int X, int Y)>? GetEntitiesForState(GameState state);
-        Dictionary<IObject, (int X, int Y)> GetObjectsForState(GameState state);
-        void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state);
+        Dictionary<IEntity, (int X, int Y)>? GetEntitiesForState(EventState state);
+        Dictionary<IObject, (int X, int Y)> GetObjectsForState(EventState state);
+        void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerworld, InnerWorldMap innerWorld, EventState state);
         void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects);
     }
 }

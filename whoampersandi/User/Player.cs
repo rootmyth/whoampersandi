@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using whoampersandi.Interfaces;
 
 namespace whoampersandi.User
 {
@@ -26,5 +27,6 @@ namespace whoampersandi.User
         public double Wit { get; set; } = 1;
         public double Acuity { get; set; } = 1;
         public double Accuracy { get; set; } = 1;
+        public List<IItem> Items { get; set; } = new();
     }
 }

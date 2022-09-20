@@ -151,16 +151,16 @@ namespace whoampersandi.Visuals
             }
         }
 
-        public void RenderDialogueOnBlankScreen(List<List<string>> dialogue)
+        public void RenderFramelessDialogue(List<List<string>> dialogue, int X, int Y)
         {
             for (int i = 0; i < dialogue.Count; i++)
             {
-                Console.SetCursorPosition(2, 2);
-                Console.WriteLine($@"  {dialogue[i][0]}  
-  {dialogue[i][1]}  
-  {dialogue[i][2]}  
-  {dialogue[i][3]}  
-  {dialogue[i][4]}  ");
+                Console.SetCursorPosition(X, Y);
+                Console.WriteLine($@"{dialogue[i][0]}
+{dialogue[i][1]}
+{dialogue[i][2]}
+{dialogue[i][3]}
+{dialogue[i][4]}");
                 bool spacebar = false;
                 while (!spacebar)
                 {
@@ -168,11 +168,6 @@ namespace whoampersandi.Visuals
                     if (input.Key.ToString() == "Spacebar")
                     {
                         spacebar = true;
-                    }
-                    else
-                    {
-                        Notify.RenderNotification(Text.CreateDialogueBoxText("Use the spacebar to scroll through dialogue.", 34, 2));
-                        RenderWorldViewer();
                     }
                 }
             }
@@ -195,27 +190,61 @@ namespace whoampersandi.Visuals
         public void RenderMenuFrame()
         {
 
-            Console.SetCursorPosition(6, 6);
-            Console.Write("                                                    ");
-            Console.SetCursorPosition(6, 7);
-            Console.Write(@"  /==============================================\  ");
-            Console.SetCursorPosition(6, 8);
-            Console.Write("  |                                              |  ");
-            Console.SetCursorPosition(6, 9);
-            Console.Write("  ================================================  ");
-            for (int i = 0; i < 20; i++)
-            {
-                Console.SetCursorPosition(6, 10 + i);
-                Console.Write("  |                                              |  ");
-            }
-            Console.SetCursorPosition(6, 30);
-            Console.Write("  ================================================  ");
-            Console.SetCursorPosition(6, 31);
-            Console.Write("                                                    ");
+             Console.SetCursorPosition(6, 6); Console.Write(@"                                                    ");
+             Console.SetCursorPosition(6, 7); Console.Write(@"    /=-+-=-=-+-=-=-+-=-=-++-=-=-+-=-=-+-=-=-+-=\    ");
+             Console.SetCursorPosition(6, 8); Console.Write(@"   /|__________________________________________|\   ");
+             Console.SetCursorPosition(6, 9); Console.Write(@"  / |)                                        (| \  ");
+            Console.SetCursorPosition(6, 10); Console.Write(@"  \/|==========================================|\/  ");
+            Console.SetCursorPosition(6, 11); Console.Write(@"  /\|)                                        (|/\  ");
+            Console.SetCursorPosition(6, 12); Console.Write(@"  \ |)                                        (| /  ");
+            Console.SetCursorPosition(6, 13); Console.Write(@"  / |)                                        (| \  ");
+            Console.SetCursorPosition(6, 14); Console.Write(@"  \/|)                                        (|\/  ");
+            Console.SetCursorPosition(6, 15); Console.Write(@"  /\|)                                        (|/\  ");
+            Console.SetCursorPosition(6, 16); Console.Write(@"  \ |)                                        (| /  ");
+            Console.SetCursorPosition(6, 17); Console.Write(@"  / |)                                        (| \  ");
+            Console.SetCursorPosition(6, 18); Console.Write(@"  \/|)                                        (|\/  ");
+            Console.SetCursorPosition(6, 19); Console.Write(@"  /\|)                                        (|/\  ");
+            Console.SetCursorPosition(6, 20); Console.Write(@"  \ |)                                        (| /  ");
+            Console.SetCursorPosition(6, 21); Console.Write(@"  / |)                                        (| \  ");
+            Console.SetCursorPosition(6, 22); Console.Write(@"  \/|)                                        (|\/  ");
+            Console.SetCursorPosition(6, 23); Console.Write(@"  /\|)                                        (|/\  ");
+            Console.SetCursorPosition(6, 24); Console.Write(@"  \ |)                                        (| /  ");
+            Console.SetCursorPosition(6, 25); Console.Write(@"  / |)                                        (| \  ");
+            Console.SetCursorPosition(6, 26); Console.Write(@"  \/|)                                        (|\/  ");
+            Console.SetCursorPosition(6, 27); Console.Write(@"  /\|)                                        (|/\  ");
+            Console.SetCursorPosition(6, 28); Console.Write(@"  \ |)                                        (| /  ");
+            Console.SetCursorPosition(6, 29); Console.Write(@"   \|)                                        (|/   ");
+            Console.SetCursorPosition(6, 30); Console.Write(@"    \=-+-=-=-+-=-=-+-=-=-++-=-=-+-=-=-+-=-=-+-=/    ");
+            Console.SetCursorPosition(6, 31); Console.Write(@"                                                    ");
         }
         public void RenderNotification()
         {
-
+            Console.WriteLine(@"                                                    
+    /=-+-=-=-+-=-=-+-=-=-++-=-=-+-=-=-+-=-=-+-=\    
+   /|__________________________________________|\   
+  / |)                                        (| \  
+  \/|==========================================|\/  
+  /\|)                                        (|/\  
+  \ |)                                        (| /  
+  / |)                                        (| \  
+  \/|)                                        (|\/  
+  /\|)                                        (|/\  
+  \ |)                                        (| /  
+  / |)                                        (| \  
+  \/|)                                        (|\/  
+  /\|)                                        (|/\  
+  \ |)                                        (| /  
+  / |)                                        (| \  
+  \/|)                                        (|\/  
+  /\|)                                        (|/\  
+  \ |)                                        (| /  
+  / |)                                        (| \  
+  \/|)                                        (|\/  
+  /\|)                                        (|/\  
+  \ |)                                        (| /  
+   \|)                                        (|/   
+    \=-+-=-=-+-=-=-+-=-=-++-=-=-+-=-=-+-=-=-+-=/    
+                                                      ");
         }
     }
 }

@@ -111,7 +111,7 @@ namespace whoampersandi.OuterWorld
         public List<string> MapLine31 { get; set; } = new List<string>() { "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "\\", "_", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", " ", " ", "\\", " ", "/", "_", "_", "\\", "/", " ", " ", "\\", };
         public List<string> MapLine32 { get; set; } = new List<string>() { "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", " ", " ", "\\", " ", " ", "|", "|", " ", "/", " ", " ", "\\", };
 
-        public Dictionary<IEntity, (int X, int Y)> GetEntitiesForState(GameState state)
+        public Dictionary<IEntity, (int X, int Y)> GetEntitiesForState(EventState state)
         {
             Dictionary<IEntity, (int X, int Y)>? entities = null;
 
@@ -123,12 +123,12 @@ namespace whoampersandi.OuterWorld
             return entities;
         }
 
-        public Dictionary<IObject, (int X, int Y)> GetObjectsForState(GameState state)
+        public Dictionary<IObject, (int X, int Y)> GetObjectsForState(EventState state)
         {
             return Objects[0];
         }
 
-        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerworld, InnerWorldMap innerWorld, GameState state)
+        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerworld, InnerWorldMap innerWorld, EventState state)
         {
             if (state.newGame)
             {

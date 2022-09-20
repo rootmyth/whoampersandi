@@ -19,7 +19,7 @@ namespace whoampersandi.Entities
             { 2, $"{Name}: Hey, I remember you! Your name is ~, right?" }
         };
 
-        public string EngaugeInDialouge(GameState state)
+        public string EngaugeInDialouge(EventState state)
         {
             KeyValuePair<int, string> dialogue = new();
             if (state.firstEpsomBath)

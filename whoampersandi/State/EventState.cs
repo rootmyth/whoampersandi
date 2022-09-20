@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace whoampersandi.State
 {
-    public class GameState
+    public class EventState
     {
-        public bool dummyStateChange { get; set; } = false;
+        public bool dummyEventStateChange { get; set; } = false;
         public bool newGame { get; set; } = true;
         public bool firstInteractionAtHome { get; set; } = true;
         public bool firstEpsomBath { get; set; } = true;

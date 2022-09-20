@@ -11,6 +11,7 @@ using whoampersandi.Objects;
 using whoampersandi.WorldNavigation;
 using whoampersandi.OuterWorld;
 using whoampersandi.Events.Repository;
+using whoampersandi.Items;
 
 namespace whoampersandi.InnerWorld
 {
@@ -33,7 +34,7 @@ namespace whoampersandi.InnerWorld
             new()
             {
                 { new Cabinet(), (37, 17) },
-                { new Cabinet(), (40, 17) }
+                { new Cabinet(new List<IItem> { new Bucket() }), (40, 17) }
             },
         };
         public List<Transpoint> Transpoints { get; } = new()
@@ -110,17 +111,17 @@ namespace whoampersandi.InnerWorld
         public List<string> MapLine31 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", };
         public List<string> MapLine32 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", };
 
-        public Dictionary<IEntity, (int X, int Y)> GetEntitiesForState(GameState state)
+        public Dictionary<IEntity, (int X, int Y)> GetEntitiesForState(EventState state)
         {
             return Entities[0];
         }
 
-        public Dictionary<IObject, (int X, int Y)> GetObjectsForState(GameState state)
+        public Dictionary<IObject, (int X, int Y)> GetObjectsForState(EventState state)
         {
             return Objects[0];
         }
 
-        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerWorld, InnerWorldMap innerWorld, GameState state)
+        public void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerWorld, InnerWorldMap innerWorld, EventState state)
         {
             if (state.firstInteractionAtHome)
             {

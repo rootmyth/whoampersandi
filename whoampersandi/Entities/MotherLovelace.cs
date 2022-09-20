@@ -19,7 +19,7 @@ namespace whoampersandi.Entities
             { 2, $"{Name}: There should be Epsom salt and a bucket to collect water in the shed, go take a look!" }
         };
 
-        public string EngaugeInDialouge(GameState state)
+        public string EngaugeInDialouge(EventState state)
         {
             KeyValuePair<int, string> dialogue = new();
             if (state.firstEpsomBath && NumberOfInteractions == 0)

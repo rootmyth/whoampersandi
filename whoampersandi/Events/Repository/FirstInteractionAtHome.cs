@@ -17,7 +17,7 @@ namespace whoampersandi.Events.Repository
         private Renderer Display = new();
         private Dialogue Text = new();
         public string EventName { get; } = "FirstInteractionAtHome";
-        public void EventSequence(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerWorld, InnerWorldMap innerWorld, GameState state)
+        public void EventSequence(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerWorld, InnerWorldMap innerWorld, EventState state)
         {
             string ML = "Mother Lovelace";
 

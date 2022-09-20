@@ -19,7 +19,7 @@ namespace whoampersandi.Entities
             { 2, $"{Name}: Just a little longer now, I can feel it!" }
         };
 
-        public string EngaugeInDialouge(GameState state)
+        public string EngaugeInDialouge(EventState state)
         {
             KeyValuePair<int, string> dialogue = new();
 

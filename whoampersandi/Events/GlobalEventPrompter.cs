@@ -13,7 +13,7 @@ namespace whoampersandi.Events
     public class GlobalEventPrompter
     {
         private EventList Events = new();
-        public void EventInitializer(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap oouterWorld, GameState state)
+        public void EventInitializer(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap oouterWorld, EventState state)
         {
             
             

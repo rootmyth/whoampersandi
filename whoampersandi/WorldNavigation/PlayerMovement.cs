@@ -12,7 +12,7 @@ namespace whoampersandi.WorldNavigation
 {
     internal class PlayerMovement
     {
-        public Dictionary<string, bool> CheckValidLandMoves(IArea area, GameState state)
+        public Dictionary<string, bool> CheckValidLandMoves(IArea area, EventState state)
         {
             Dictionary<string, bool> validMoves = new Dictionary<string, bool>()
             {
@@ -186,7 +186,7 @@ namespace whoampersandi.WorldNavigation
             return newArea;
         }
 
-        public Dictionary<string, int> MovePlayerWithinArea(IArea area, GameState state, ConsoleKeyInfo userInput)
+        public Dictionary<string, int> MovePlayerWithinArea(IArea area, EventState state, ConsoleKeyInfo userInput)
         {
             string input = userInput.Key.ToString();
 

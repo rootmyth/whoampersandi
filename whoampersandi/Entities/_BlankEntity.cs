@@ -18,7 +18,7 @@ namespace whoampersandi.Entities
             { 1, $"{Name}: " },
         };
 
-        public string EngaugeInDialouge(GameState state)
+        public string EngaugeInDialouge(EventState state)
         {
             KeyValuePair<int, string> dialogue = new();
 

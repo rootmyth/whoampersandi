@@ -13,6 +13,6 @@ namespace whoampersandi.Interfaces
         static string Name { get; set; }
         int NumberOfInteractions { get; set; }
         Dictionary<int, string> EntityDialogue { get; }
-        string EngaugeInDialouge(GameState state);
+        string EngaugeInDialouge(EventState state);
     }
 }

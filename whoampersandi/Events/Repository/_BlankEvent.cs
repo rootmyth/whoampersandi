@@ -17,7 +17,7 @@ namespace whoampersandi.Events.Repository
         private Renderer Display = new();
         private Dialogue Text = new();
         public string EventName { get; } = "";
-        public void EventSequence(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap outerWorld, InnerWorldMap innerWorld, GameState state)
+        public void EventSequence(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, OuterWorldMap outerWorld, InnerWorldMap innerWorld, EventState state)
         {
 
         }
