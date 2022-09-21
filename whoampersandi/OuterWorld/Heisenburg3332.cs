@@ -10,6 +10,7 @@ using whoampersandi.State;
 using whoampersandi.WorldNavigation;
 using whoampersandi.Events.Repository;
 using whoampersandi.InnerWorld;
+using whoampersandi.Visuals;
 
 namespace whoampersandi.OuterWorld
 {
@@ -43,38 +44,10 @@ namespace whoampersandi.OuterWorld
         };
         public List<List<string>> MapMatrix => new()
         {
-            MapLine01,
-            MapLine02,
-            MapLine03,
-            MapLine04,
-            MapLine05,
-            MapLine06,
-            MapLine07,
-            MapLine08,
-            MapLine09,
-            MapLine10,
-            MapLine11,
-            MapLine12,
-            MapLine13,
-            MapLine14,
-            MapLine15,
-            MapLine16,
-            MapLine17,
-            MapLine18,
-            MapLine19,
-            MapLine20,
-            MapLine21,
-            MapLine22,
-            MapLine23,
-            MapLine24,
-            MapLine25,
-            MapLine26,
-            MapLine27,
-            MapLine28,
-            MapLine29,
-            MapLine30,
-            MapLine31,
-            MapLine32
+            MapLine01, MapLine02, MapLine03, MapLine04, MapLine05, MapLine06, MapLine07, MapLine08,
+            MapLine09, MapLine10, MapLine11, MapLine12, MapLine13, MapLine14, MapLine15, MapLine16,
+            MapLine17, MapLine18, MapLine19, MapLine20, MapLine21, MapLine22, MapLine23, MapLine24,
+            MapLine25, MapLine26, MapLine27, MapLine28, MapLine29, MapLine30, MapLine31, MapLine32
         };
         public List<List<string>> Map { get { return MapMatrix; } set { Map = MapMatrix; } }
 
@@ -111,6 +84,8 @@ namespace whoampersandi.OuterWorld
         public List<string> MapLine31 { get; set; } = new List<string>() { "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "\\", "_", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", " ", " ", "\\", " ", "/", "_", "_", "\\", "/", " ", " ", "\\", };
         public List<string> MapLine32 { get; set; } = new List<string>() { "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", " ", " ", "\\", " ", " ", "|", "|", " ", "/", " ", " ", "\\", };
 
+        public MapRenderer MapRenderer { get; } = new();
+
         public Dictionary<IEntity, (int X, int Y)> GetEntitiesForState(EventState state)
         {
             Dictionary<IEntity, (int X, int Y)>? entities = null;
@@ -140,52 +115,7 @@ namespace whoampersandi.OuterWorld
 
         public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects)
         {
-            List<(IObject areaObject, (int X, int Y) location, List<(int X, int Y)> boxCoords)> objectList = new();
-            foreach (KeyValuePair<IObject, (int, int)> obj in objects)
-            {
-                objectList.Add((obj.Key, obj.Value, obj.Key.CreateInteractionBox(obj.Value)));
-            }
-
-            List<(int X, int Y)> objectCoordinatesList = new();
-            foreach (KeyValuePair<IObject, (int X, int Y)> obj in objects)
-            {
-                objectCoordinatesList.AddRange(obj.Key.CreateInteractionBox(obj.Value));
-            }
-
-            int row = 0;
-            foreach (List<string> consoleLineList in Map)
-            {
-                int column = 0;
-                string consoleLineChars = "";
-                foreach (string character in consoleLineList)
-                {
-                    if (entities.ContainsValue((column, row)))
-                    {
-                        consoleLineChars += entities.FirstOrDefault(entity => entity.Value == (column, row)).Key.Appearance;
-                    }
-                    else if (objectCoordinatesList.Contains((column, row)))
-                    {
-                        foreach ((IObject areaObject, (int X, int Y) location, List<(int X, int Y)> boxCoords) obj in objectList)
-                        {
-                            if (obj.boxCoords.Contains((column, row)))
-                            {
-                                consoleLineChars += obj.areaObject.ReturnRendering()[row - obj.location.Y][column - obj.location.X];
-                            }
-                        }
-                    }
-                    else if (PlayerLocation["X"] == column && PlayerLocation["Y"] == row)
-                    {
-                        consoleLineChars += player.Appearance;
-                    }
-                    else
-                    {
-                        consoleLineChars += character;
-                    }
-                    column++;
-                }
-                Console.WriteLine(consoleLineChars);
-                row++;
-            }
+            MapRenderer.DisplayArea(this, player, entities, objects);
         }
     }
 }

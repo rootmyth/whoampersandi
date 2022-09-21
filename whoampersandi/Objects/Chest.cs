@@ -10,7 +10,7 @@ using whoampersandi.User;
 
 namespace whoampersandi.Objects
 {
-    internal class Chest
+    internal class Chest : IObject
     {
         public Chest()
         {
@@ -24,7 +24,7 @@ namespace whoampersandi.Objects
         public bool IsStorage { get; } = true;
         public int StorageCapacity { get; } = 8;
         public List<IItem>? ItemsInStorage { get; set; }
-        public (int X, int Y) InteractionBoxSize { get; } = (2, 3);
+        public (int X, int Y) InteractionBoxSize { get; } = (3, 2);
         public int State { get; set; } = 1;
         public Dictionary<int, List<List<string>>> StateVariants { get { return RenderingList; } set { StateVariants = RenderingList; } }
         public Dictionary<int, List<List<string>>> RenderingList => new()

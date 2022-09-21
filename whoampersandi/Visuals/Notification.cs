@@ -60,7 +60,7 @@ namespace whoampersandi.Visuals
                 bool spacebar = false;
                 while (!spacebar)
                 {
-                    ConsoleKeyInfo input = Console.ReadKey();
+                    ConsoleKeyInfo input = Console.ReadKey(true);
                     if (input.Key.ToString() == "Spacebar")
                     {
                         spacebar = true;

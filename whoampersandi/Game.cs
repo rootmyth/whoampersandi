@@ -61,7 +61,7 @@ namespace whoampersandi
                 Display.RenderDialogueBox();
 
                 Console.SetCursorPosition(0, 44);
-                ConsoleKeyInfo userInput = Console.ReadKey();
+                ConsoleKeyInfo userInput = Console.ReadKey(true);
                 Update(areaToDisplay, OuterWorld, InnerWorld, userInput);
 
             }
@@ -108,7 +108,7 @@ namespace whoampersandi
                     
                     Menu.DisplayMainMenu(User);
                     Console.SetCursorPosition(0, 44);
-                    ConsoleKeyInfo menuInput = Console.ReadKey();
+                    ConsoleKeyInfo menuInput = Console.ReadKey(true);
                     
                     if (!Menu.UpdateMenu(menuInput))
                     {

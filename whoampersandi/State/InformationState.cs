@@ -10,7 +10,8 @@ namespace whoampersandi.State
     {
         public List<(string itemName, bool currentState)> ItemInfo { get; set; } = new()
         {
-            ("Bucket", false)
+            ("Empty Bucket", false),
+            ("Water Bucket", false)
         };
     }
 }

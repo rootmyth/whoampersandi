@@ -52,7 +52,7 @@ namespace whoampersandi.Visuals
                 Console.Write($"> {text}");
 
                 Console.SetCursorPosition(2, 40);
-                string input = Console.ReadKey().Key.ToString();
+                string input = Console.ReadKey(true).Key.ToString();
                 if (text.Length < numberOfCharacters && text.Length > 0 && validCharacters.Contains(input))
                 {
                     showInstruction = false;

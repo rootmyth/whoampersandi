@@ -173,12 +173,12 @@ namespace whoampersandi.WorldNavigation
                 {
                     if (tp.TransToOuterWorld == true)
                     {
-                        newArea = outerWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == tp.LocationInWorld);
+                        newArea = outerWorld.Map.FirstOrDefault(a => a.MapLocationInWorld == tp.LocationInWorld);
                         newArea.PlayerLocation = tp.playerSpawnLocation;
                     }
                     else
                     {
-                        newArea = innerWorld.Map.FirstOrDefault(area => area.MapLocationInWorld == tp.LocationInWorld);
+                        newArea = innerWorld.Map.FirstOrDefault(a => a.MapLocationInWorld == tp.LocationInWorld);
                         newArea.PlayerLocation = tp.playerSpawnLocation;
                     }
                 }

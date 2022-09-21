@@ -40,7 +40,7 @@ namespace whoampersandi.Objects
         };
         public List<List<string>> DefaultRendering => new() { ObjectLine01, ObjectLine02, ObjectLine03 };
         public List<string> ObjectLine01 { get; } = new List<string>() { "=", "=", "="};
-        public List<string> ObjectLine02 { get; } = new List<string>() { "[", "-", "]" };
+        public List<string> ObjectLine02 { get; } = new List<string>() { "[", "|", "]" };
         public List<string> ObjectLine03 { get; } = new List<string>() { "=", "=", "=" };
         public List<List<string>> ReturnRendering()
         {
@@ -77,6 +77,32 @@ namespace whoampersandi.Objects
 
 
             int interactionMenuSelection = promptMenu.UseObjectMenu(menu.prompt, menu.options);
+            if (interactionMenuSelection == 1)
+            {
+                Renderer frame = new();
+
+                // Set up first Menu Unit - Options, OptionsLocation, Size, SystemIndex
+                MenuUnit itemList = new();
+                foreach (IItem item in player.Items)
+                {
+                    itemList.Options.Add(item.Description);
+                }
+                itemList.OptionsLocation = (13, 11);
+                itemList.Size = (38, 16);
+                itemList.SystemIndex = 0;
+
+                // Set up second Menu Unit - Options, OptionsLocation, Size, SystemIndex
+                MenuUnit itemSubMenu = new();
+                itemSubMenu.Options.AddRange(new List<string> { "Stow Item", "More Info" });
+                itemSubMenu.OptionsLocation = (37, 11);
+                itemSubMenu.Size = (10, 16);
+                itemSubMenu.SystemIndex = 1;
+
+                StorageSystem cabinetSystem = new();
+
+                frame.RenderMenuFrame();
+                cabinetSystem.ViewInventoryForStorage(new List<MenuUnit> { itemList, itemSubMenu }, this, infoState, player);
+            }
             if (interactionMenuSelection == 2)
             {
                 CabinetMenuFrame frame = new();
@@ -94,14 +120,14 @@ namespace whoampersandi.Objects
                 // Set up second Menu Unit - Options, OptionsLocation, Size, SystemIndex
                 MenuUnit itemSubMenu = new();
                 itemSubMenu.Options.AddRange(new List<string> { "Take", "More Info" });
-                itemSubMenu.OptionsLocation = (37, 10);
+                itemSubMenu.OptionsLocation = (37, 11);
                 itemSubMenu.Size = (10, 16);
                 itemSubMenu.SystemIndex = 1;
 
                 StorageSystem cabinetSystem = new();
 
                 frame.RenderCabinetFrame();
-                cabinetSystem.ViewStorageSystem(new List<MenuUnit> { itemList, itemSubMenu }, this, infoState, player);
+                cabinetSystem.ViewStorageContents(new List<MenuUnit> { itemList, itemSubMenu }, this, infoState, player);
             }
         }
     }

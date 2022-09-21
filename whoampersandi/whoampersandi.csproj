@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Objects\Cabinet.cs~RF158e82e4.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Utilities\" />
   </ItemGroup>
 

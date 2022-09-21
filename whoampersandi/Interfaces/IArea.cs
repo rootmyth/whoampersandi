@@ -8,6 +8,7 @@ using whoampersandi.State;
 using whoampersandi.WorldNavigation;
 using whoampersandi.OuterWorld;
 using whoampersandi.InnerWorld;
+using whoampersandi.Visuals;
 
 namespace whoampersandi.Interfaces
 {
@@ -53,9 +54,11 @@ namespace whoampersandi.Interfaces
         List<string> MapLine30 { get; set; }
         List<string> MapLine31 { get; set; }
         List<string> MapLine32 { get; set; }
+        MapRenderer MapRenderer { get; }
         Dictionary<IEntity, (int X, int Y)>? GetEntitiesForState(EventState state);
         Dictionary<IObject, (int X, int Y)> GetObjectsForState(EventState state);
         void GetAreaEvents(IArea area, Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects, OuterWorldMap outerworld, InnerWorldMap innerWorld, EventState state);
         void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects);
+
     }
 }

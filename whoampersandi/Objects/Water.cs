@@ -57,21 +57,21 @@ namespace whoampersandi.Objects
         }
         public void InteractWithObject(Player player, InformationState infoState)
         {
-            //ObjectMenu menu = new();
-            //List<string> options = new() { "Use Item" };
+            ObjectMenu menu = new();
+            List<string> options = new() { "Use Item" };
 
-            //bool usingMenu = true;
-            //while (usingMenu)
-            //{
-            //    menu.DisplayObjectMenu("The water is calm as usual.", options);
-            //    Console.SetCursorPosition(0, 44);
-            //    ConsoleKeyInfo menuInput = Console.ReadKey();
+            bool usingMenu = true;
+            while (usingMenu)
+            {
+                menu.DisplayObjectMenu("The water is calm as usual.", options);
+                Console.SetCursorPosition(0, 44);
+                ConsoleKeyInfo menuInput = Console.ReadKey(true);
 
-            //    if (!menu.UpdateMenu(menuInput).usingMenu)
-            //    {
-            //        usingMenu = false;
-            //    }
-            //}
+                //if (!menu.UpdateMenu(menuInput).usingMenu)
+                //{
+                //    usingMenu = false;
+                //}
+            }
         }
     }
 }

@@ -10,10 +10,13 @@ using whoampersandi.Entities;
 using whoampersandi.OuterWorld;
 using whoampersandi.WorldNavigation;
 using whoampersandi.Events.Repository;
+using whoampersandi.Objects;
+using whoampersandi.Items;
+using whoampersandi.Visuals;
 
 namespace whoampersandi.InnerWorld
 {
-    internal class PlayersStorage3132
+    internal class PlayersStorage3132 : IArea
     {
         public string RegionName { get; } = "HEISENBURG";
         public bool IsOuterWorld { get; } = false;
@@ -31,12 +34,15 @@ namespace whoampersandi.InnerWorld
         {
             new()
             {
-
+                { new Cabinet(), (25, 11) },
+                { new Cabinet(new List<IItem> { new Bucket() }), (28, 11) },
+                { new Chest(), (32, 12) },
+                { new Cabinet(), (36, 11) },
             },
         };
         public List<Transpoint> Transpoints { get; } = new()
         {
-
+            new(34, 21, "S", "IW3232_PlayersStorage_FrontDoor", "H3232_PlayersStorage_FrontDoor", true, 32, 32, 12, 16)
         };
         public List<List<string>> MapMatrix => new()
         {
@@ -80,6 +86,8 @@ namespace whoampersandi.InnerWorld
         public List<string> MapLine31 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", };
         public List<string> MapLine32 { get; set; } = new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", };
 
+        public MapRenderer MapRenderer { get; } = new();
+
         public Dictionary<IEntity, (int X, int Y)> GetEntitiesForState(EventState state)
         {
             return Entities[0];
@@ -102,52 +110,7 @@ namespace whoampersandi.InnerWorld
 
         public void RenderMap(Player player, Dictionary<IEntity, (int, int)> entities, Dictionary<IObject, (int, int)> objects)
         {
-            List<(IObject areaObject, (int X, int Y) location, List<(int X, int Y)> boxCoords)> objectList = new();
-            foreach (KeyValuePair<IObject, (int, int)> obj in objects)
-            {
-                objectList.Add((obj.Key, obj.Value, obj.Key.CreateInteractionBox(obj.Value)));
-            }
-
-            List<(int X, int Y)> objectCoordinatesList = new();
-            foreach (KeyValuePair<IObject, (int X, int Y)> obj in objects)
-            {
-                objectCoordinatesList.AddRange(obj.Key.CreateInteractionBox(obj.Value));
-            }
-
-            int row = 0;
-            foreach (List<string> consoleLineList in Map)
-            {
-                int column = 0;
-                string consoleLineChars = "";
-                foreach (string character in consoleLineList)
-                {
-                    if (entities.ContainsValue((column, row)))
-                    {
-                        consoleLineChars += entities.FirstOrDefault(entity => entity.Value == (column, row)).Key.Appearance;
-                    }
-                    else if (objectCoordinatesList.Contains((column, row)))
-                    {
-                        foreach ((IObject areaObject, (int X, int Y) location, List<(int X, int Y)> boxCoords) obj in objectList)
-                        {
-                            if (obj.boxCoords.Contains((column, row)))
-                            {
-                                consoleLineChars += obj.areaObject.ReturnRendering()[row - obj.location.Y][column - obj.location.X];
-                            }
-                        }
-                    }
-                    else if (PlayerLocation["X"] == column && PlayerLocation["Y"] == row)
-                    {
-                        consoleLineChars += player.Appearance;
-                    }
-                    else
-                    {
-                        consoleLineChars += character;
-                    }
-                    column++;
-                }
-                Console.WriteLine(consoleLineChars);
-                row++;
-            }
+            MapRenderer.DisplayArea(this, player, entities, objects);
         }
     }
 }

@@ -91,7 +91,7 @@ namespace whoampersandi.Menus
             while (selection == -1)
             {
                 DisplayObjectMenu(prompt, options);
-                ConsoleKeyInfo input = Console.ReadKey();
+                ConsoleKeyInfo input = Console.ReadKey(true);
                 selection = UpdateObjectMenu(input);
             }
             return selection;
